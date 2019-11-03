@@ -1,0 +1,51 @@
+1. Obtain a Fortran compiler. The code has been successfully compiled on both an Ubuntu Linux and a Windows system using the gfortran compiler:
+  - On Windows, the gfortran compiler can be obtained with the MinGW Installer: http://www.mingw.org/wiki/Getting_Started
+  - On Ubuntu Linux, I believe the 
+        sudo apt-get install gfortran
+    downloads and installs the latest version of gfortran.
+  - On Mac, I would think the tutorial found at
+        https://www.lpl.arizona.edu/faq/computing-faq/desktop-environments/how-do-i-install-gcc-and-fortran-my-mac
+    should work.  
+gfortran is also available on all computers in the math department.
+
+Alternatively, one could follow the Fortran 90/95 tutorial found at
+    https://www.fortrantutorial.com/
+which has its own suggestions. We will assume that you've successfully obtained gfortran.
+
+2. Learn the basics. There are many tutorials across the internet on how to use Fortran. I've personally consulted
+    https://www.tutorialspoint.com/fortran/index.htm
+multiple times throughout my experience learning and using Fortran. For the purposes of this course, the following sections of the tutorial are not necessary (at least, not yet):
+  - Derived Data Types
+  - Pointers
+  - Modules (Very useful, would still recommend to go through at some point soon.)
+  - Program Libraries
+  - Debugging Program
+
+For learning how to compile using gfortran, the website
+    https://gcc.gnu.org/wiki/GFortranUsage
+looks good. For any single-file program, the command
+    gfortran source.f90 -o executable.exe
+compiles the code found in source.f90 and generates an executable file executable.exe. To run the executable, use the command
+    ./executable.exe
+(NOTE: When we refer to using a command, we mean that the user enters the command into the command prompt. On Windows, this can be accessed from the Start/Windows menu by typing "cmd".)
+
+Some simple programs to try to code include:
+  - "Hello World": A program which prints the message "Hello world!" to the command prompt.
+  - "Add Numbers": A program which adds two numbers and prints the result.
+  - "Number Size": A program which states if a number is greater or less than 20 using an "if" statement.
+
+The tutorialspoint tutorial gives a number of example programs to try, so definitely go through it!
+
+3. Download the source code for the 2D heat equation solver with homogeneous Dirichlet boundary conditions (available on Canvas).
+  - Leaf through the code and try to get an idea for the flow of it. Read the comments for clarifications.
+  - Compile and run the code with the supplied simulation parameters and initial conditions. Plot some of the output files using your preferred programming language (e.g., Mathematica, Matlab, etc.).
+  - Try changing the simulation parameters found in the file NAMELIST. For example, change the values of x_diffus and y_diffuse to change the diffusivity coefficients in the x- and y-directions, or change the value of fin_time to run the simulation for a longer or shorter period of time. (Increase the value of output_freq to decrease the number of output files. For exemple, output_freq = 2 means that the code will output a file every 2 time steps.) NOTE: When changing values in the NAMELIST file, it is not necessary to recompile the code between each run.
+  - Try changing the initial condition by editting the INITIAL_CONDITION function in the file main.f90. The INITIAL_CONDITION function takes in two inputs x_pos, y_pos (standing for x-position and y-position) and outputs a single number output. By changing the line 
+        output = ____
+you can change the initial condition. for example,
+        output = SIN(x_pos * y_pos)
+makes the initial condition f(x, y) = sin(x * y). You can look up other mathematical intrinsic functions
+        https://www.tutorialspoint.com/fortran/fortran_intrinsic_functions.htm
+to come up with some other neat initial conditions! NOTE: When changing anything in the main.f90 file, you will need to re-compile the code to see any changes.
+  - CHALLENGE: Change the numerical scheme used by the code, which is found in the NUMERICAL_SCHEME subroutine. Currently, it uses a Forward Euler scheme in time and a first-order midpoint scheme for both u_xx and u_yy.
+
